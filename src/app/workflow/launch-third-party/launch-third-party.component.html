@@ -1,10 +1,5 @@
 <mat-card
-  *ngIf="
-    workflow?.descriptorType === WorkflowModel.DescriptorTypeEnum.WDL ||
-    workflow?.descriptorType === WorkflowModel.DescriptorTypeEnum.CWL ||
-    workflow.descriptorType === WorkflowModel.DescriptorTypeEnum.NFL ||
-    workflow.descriptorType === WorkflowModel.DescriptorTypeEnum.Gxformat2
-  "
+  *ngIf="true"
 >
   <mat-card-header>
     <mat-card-title>Launch with</mat-card-title>
@@ -12,17 +7,30 @@
   <mat-card-content>
     <div class="container-source-repos">
       <div class="container-launch-with">
-        <div *ngIf="workflow?.descriptorType === WorkflowModel.DescriptorTypeEnum.WDL">
-          <div *ngIf="(hasFileImports$ | async) || (hasHttpImports$ | async)" class="import-warning">
+        <div *ngIf="true">
+          <div *ngIf="false" class="import-warning">
             Warning: this version of the WDL has imports, which are not supported by DNAstack. Make sure to select a version without imports
             in DNAstack.
           </div>
           <div
-            *ngIf="config.FEATURES.enableMultiCloudLaunchWithDNAstack; else oldWdlLaunch"
+            *ngIf="true"
             fxLayout="column"
             fxLayoutAlign="space-between center"
             fxLayoutGap="0.625rem"
           >
+            <app-multi-cloud-launch
+              [cloudInstances]="cloudInstances"
+              [usersCloudInstances]="usersCloudInstances"
+              [languagePartner]="partner.BINDER"
+              [appendToLaunchUrl]="
+                '/v2/gh/' + workflow.full_workflow_path.substring(11) + '/' + selectedVersion.reference
+              "
+              [user]="user$ | async"
+              [imagePath]="'../assets/images/thirdparty/binder-multi-cloud.png'"
+              [className]="'partner-launch'"
+              [disabled]="false"
+            ></app-multi-cloud-launch>
+
             <app-multi-cloud-launch
               [cloudInstances]="cloudInstances"
               [usersCloudInstances]="usersCloudInstances"

@@ -32,18 +32,37 @@ export class SourceFileTabsService {
     mainDescriptorAbsolutePath: string,
     descriptorLanguage: ToolDescriptor.TypeEnum
   ): Map<string, SourceFile[]> {
+    // TODO Handle checmat ic for descriptorLanguage BINDER
+    var temp = descriptorLanguage;
+
+    if (descriptorLanguage === null) {
+        temp = "CWL";
+    }
+
+    
     let fileTabs = new Map<string, SourceFile[]>();
     const fileTabsSchematic =
-      this.descriptorLanguageService.toolDescriptorTypeEnumToExtendedDescriptorLanguageBean(descriptorLanguage).fileTabs;
+      this.descriptorLanguageService.toolDescriptorTypeEnumToExtendedDescriptorLanguageBean(temp).fileTabs;
 
     // Always have the Descriptor Files Tab and Test Parameter Files tab
     fileTabs.set(fileTabsSchematic[0].tabName, []);
     fileTabs.set(fileTabsSchematic[1].tabName, []);
     if (!sourcefiles || sourcefiles.length === 0) {
-      return fileTabs;
+       return fileTabs;
     }
+    if (descriptorLanguage === null) {
+        fileTabs.set(fileTabsSchematic[0].tabName,sourcefiles);
+        return fileTabs;
+    }
+
     fileTabsSchematic.forEach((fileTab) => {
+      console.log("*****");
+      console.log(fileTab);
+      console.log("*****");
       fileTab.fileTypes.forEach((fileType) => {
+        console.log("*****");
+        console.log(fileType);
+        console.log("*****");
         // Find all the files of the type that's not the main descriptor
         const sourceFilesMatchingType = sourcefiles.filter(
           (sourcefile) => sourcefile.type === fileType && sourcefile.absolutePath !== mainDescriptorAbsolutePath
@@ -77,6 +96,7 @@ export class SourceFileTabsService {
       const matchingSourcefile = sourcefiles.find((file) => validation.type === file.type && !validation.valid);
       if (matchingSourcefile) {
         validationMessage = JSON.parse(validation.message);
+         console.log(validation.message);
       }
     });
     return validationMessage;
