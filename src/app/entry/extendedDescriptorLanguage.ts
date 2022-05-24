@@ -5,6 +5,7 @@ import { extendedWDL } from 'app/descriptor-languages/WDL';
 import { DescriptorLanguageBean, SourceFile, ToolDescriptor, Workflow } from 'app/shared/swagger';
 import { extendedCWL } from '../descriptor-languages/CWL';
 import { extendedSMK } from '../descriptor-languages/Snakemake';
+import { extendedBINDER } from '../descriptor-languages/BINDER';
 
 /**
  * The idea is that this file serves as a collection of language plugins.
@@ -62,6 +63,7 @@ export const extendedUnknownDescriptor: ExtendedDescriptorLanguageBean = {
 
 // To add a language, create a file in the descriptor-languages directory that is an ExtendedDescriptorLanguageBean
 export const extendedDescriptorLanguages: ExtendedDescriptorLanguageBean[] = [
+  extendedBINDER,
   extendedSMK,
   extendedCWL,
   extendedWDL,
@@ -70,4 +72,4 @@ export const extendedDescriptorLanguages: ExtendedDescriptorLanguageBean[] = [
   extendedGalaxy,
 ];
 
-export type DescriptorLanguageEnum = 'SMK' | 'CWL' | 'WDL' | 'GXFORMAT2' | 'SWL' | 'NEXTFLOW' | 'SERVICE';
+export type DescriptorLanguageEnum = 'BINDER' | 'SMK' | 'CWL' | 'WDL' | 'GXFORMAT2' | 'SWL' | 'NEXTFLOW' | 'SERVICE';

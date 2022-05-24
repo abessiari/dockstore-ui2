@@ -32,27 +32,15 @@ export class SourceFileTabsService {
     mainDescriptorAbsolutePath: string,
     descriptorLanguage: ToolDescriptor.TypeEnum
   ): Map<string, SourceFile[]> {
-    // TODO Handle checmat ic for descriptorLanguage BINDER
-    var temp = descriptorLanguage;
-
-    if (descriptorLanguage === null) {
-        temp = "CWL";
-    }
-
-    
     let fileTabs = new Map<string, SourceFile[]>();
     const fileTabsSchematic =
-      this.descriptorLanguageService.toolDescriptorTypeEnumToExtendedDescriptorLanguageBean(temp).fileTabs;
+      this.descriptorLanguageService.toolDescriptorTypeEnumToExtendedDescriptorLanguageBean(descriptorLanguage).fileTabs;
 
     // Always have the Descriptor Files Tab and Test Parameter Files tab
     fileTabs.set(fileTabsSchematic[0].tabName, []);
     fileTabs.set(fileTabsSchematic[1].tabName, []);
     if (!sourcefiles || sourcefiles.length === 0) {
        return fileTabs;
-    }
-    if (descriptorLanguage === null) {
-        fileTabs.set(fileTabsSchematic[0].tabName,sourcefiles);
-        return fileTabs;
     }
 
     fileTabsSchematic.forEach((fileTab) => {

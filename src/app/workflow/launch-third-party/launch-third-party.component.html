@@ -24,6 +24,7 @@
               [languagePartner]="partner.BINDER"
               [appendToLaunchUrl]="
                 '/v2/gh/' + workflow.full_workflow_path.substring(11) + '/' + selectedVersion.reference
+                + '?labpath=' + workflow.defaultTestParameterFilePath
               "
               [user]="user$ | async"
               [imagePath]="'../assets/images/thirdparty/binder-multi-cloud.png'"
