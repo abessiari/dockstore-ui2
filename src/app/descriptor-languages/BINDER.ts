@@ -13,7 +13,7 @@ export const extendedBINDER: ExtendedDescriptorLanguageBean = {
   workflowDescriptorEnum: Workflow.DescriptorTypeEnum.BINDER,
   languageDocumentationURL: 'https://jupyter.org/binder',
   plainTRS: 'PLAIN-BINDER',
-  descriptorFileTypes: [SourceFile.TypeEnum.BINDER_CONFIG],
+  descriptorFileTypes: [SourceFile.TypeEnum.BINDERCONFIG],
   toolTab: {
     rowIdentifier: 'tool\xa0ID',
     workflowStepHeader: 'Tool Excerpt',
@@ -23,12 +23,12 @@ export const extendedBINDER: ExtendedDescriptorLanguageBean = {
   fileTabs: [
     {
       tabName: 'Environment Files',
-      fileTypes: [SourceFile.TypeEnum.BINDER_CONFIG],
+      fileTypes: [SourceFile.TypeEnum.BINDERCONFIG],
     },
     {
       tabName: 'Notebooks',
       fileTypes: [SourceFile.TypeEnum.NOTEBOOK],
     },
-    { tabName: 'Configuration', fileTypes: [SourceFile.TypeEnum.BINDER_CONFIG] },
+    { tabName: 'Configuration', fileTypes: [SourceFile.TypeEnum.BINDERCONFIG] },
   ],
 };
