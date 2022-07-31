@@ -8,7 +8,7 @@ export const extendedBINDER: ExtendedDescriptorLanguageBean = {
   friendlyName: 'Binder Environment',
   defaultDescriptorPath: '/requirements.txt',
   descriptorPathPattern: '^/([^/?:*|<>]+/)*[^/?:*|<>]+.(txt|yaml|yml)',
-  descriptorPathPlaceholder: 'e.g. /reuirements.txt',
+  descriptorPathPlaceholder: 'e.g. /requirements.txt',
   toolDescriptorEnum: ToolDescriptor.TypeEnum.BINDER,
   workflowDescriptorEnum: Workflow.DescriptorTypeEnum.BINDER,
   languageDocumentationURL: 'https://jupyter.org/binder',

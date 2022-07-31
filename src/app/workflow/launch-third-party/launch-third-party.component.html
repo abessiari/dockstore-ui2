@@ -1,3 +1,4 @@
+<app-loading [loading]="loading">
 <mat-card
   *ngIf="true"
 >
@@ -9,8 +10,7 @@
       <div class="container-launch-with">
         <div *ngIf="true">
           <div *ngIf="false" class="import-warning">
-            Warning: this version of the WDL has imports, which are not supported by DNAstack. Make sure to select a version without imports
-            in DNAstack.
+            <h2> HI {{ username }} Bye {{ image }}</h2>
           </div>
           <div
             *ngIf="true"
@@ -18,6 +18,20 @@
             fxLayoutAlign="space-between center"
             fxLayoutGap="0.625rem"
           >
+            <app-multi-cloud-launch
+              [cloudInstances]="cloudInstances"
+              [usersCloudInstances]="usersCloudInstances"
+              [languagePartner]="partner.JUPHUB"
+              [appendToLaunchUrl]="
+                '/user/' + username + '/lab/tree' 
+                 + workflow.defaultTestParameterFilePath +'?image=' + image
+              "
+              [user]="user$ | async"
+              [imagePath]="'../assets/images/thirdparty/juphub-multi-cloud.png'"
+              [className]="'partner-launch'"
+              [disabled]="false"
+            ></app-multi-cloud-launch>
+
             <app-multi-cloud-launch
               [cloudInstances]="cloudInstances"
               [usersCloudInstances]="usersCloudInstances"
@@ -31,6 +45,7 @@
               [className]="'partner-launch'"
               [disabled]="false"
             ></app-multi-cloud-launch>
+
 
             <app-multi-cloud-launch
               [cloudInstances]="cloudInstances"
@@ -247,3 +262,4 @@
     </div>
   </mat-card-content>
 </mat-card>
+</app-loading>

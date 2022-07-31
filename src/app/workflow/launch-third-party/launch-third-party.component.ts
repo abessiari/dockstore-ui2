@@ -19,6 +19,8 @@ import { DescriptorsStore } from './state/descriptors-store';
 import { DescriptorsService } from './state/descriptors.service';
 import FileTypeEnum = ToolFile.FileTypeEnum;
 
+import { SourceFileTabsService } from 'app/source-file-tabs/source-file-tabs.service';
+
 /* eslint-disable max-len */
 /**
  *  # Overview
@@ -110,6 +112,10 @@ export class LaunchThirdPartyComponent extends Base implements OnChanges, OnInit
   @Input()
   selectedVersion: WorkflowVersion;
 
+  username: string;
+  loading = true;
+  image:string;
+
   user$: Observable<User>;
 
   /**
@@ -193,6 +199,7 @@ export class LaunchThirdPartyComponent extends Base implements OnChanges, OnInit
   );
 
   constructor(
+    private sourceFileTabsService: SourceFileTabsService,
     private workflowsService: WorkflowsService,
     private descriptorTypeCompatService: DescriptorTypeCompatService,
     iconRegistry: MatIconRegistry,
@@ -211,7 +218,32 @@ export class LaunchThirdPartyComponent extends Base implements OnChanges, OnInit
     iconRegistry.addSvgIcon('anvil', sanitizer.bypassSecurityTrustResourceUrl('../assets/images/thirdparty/anvil.svg'));
   }
 
+  getSourceFiles(workflowId: number, versionId: number): Observable<SourceFile[]> {
+    return this.sourceFileTabsService.getSourceFiles(workflowId, versionId);
+  }
+
   ngOnInit(): void {
+    if (this.workflow.descriptorType == "JUPHUB") {
+      this.userQuery.user$.subscribe((user) => { 
+         this.username = user.username;
+      });
+      this.getSourceFiles(this.workflow.id, this.selectedVersion.id).subscribe(
+        (sourceFiles: SourceFile[]) => {
+          sourceFiles.forEach((sourceFile) => {
+              if (sourceFile.type == "JUPHUB_CONFIG") {
+                 const content = JSON.parse(sourceFile.content);
+
+                 this.image = content.image;
+              }
+          });
+
+          this.loading = false;
+        }
+      );
+    } else {
+      this.loading = false;
+    }
+
     this.user$ = this.userQuery.user$;
     this.cloudInstanceService.getCloudInstances().subscribe((cloudInstances: Array<CloudInstance>) => {
       this.cloudInstances = cloudInstances;
